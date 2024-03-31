@@ -18,7 +18,7 @@ import pandas as pd
 import torch
 
 # read train, valid, test csv
-# all csv column: id, title, content, label(0, 1)
+# all csv column: id, title, comment, label(0, 1)
 train = pd.read_csv('train.csv')
 valid = pd.read_csv('valid.csv')
 test = pd.read_csv('test.csv')
@@ -28,10 +28,10 @@ train = train.drop(columns=['id', 'title'])
 valid = valid.drop(columns=['id', 'title'])
 test = test.drop(columns=['id', 'title'])
 
-# remove content longer than 500
-train = train[train['content'].str.len() < 500]
-valid = valid[valid['content'].str.len() < 500]
-test = test[test['content'].str.len() < 500]
+# remove comment longer than 500
+train = train[train['comment'].str.len() < 500]
+valid = valid[valid['comment'].str.len() < 500]
+test = test[test['comment'].str.len() < 500]
 
 # convert pandas as dataset format, combine as datasetDict format
 train_dataset = Dataset.from_pandas(train)
@@ -44,11 +44,11 @@ tokenizer_name = "uer/roberta-base-finetuned-chinanews-chinese"
 tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
 
 def tokenize(batch):
-    return tokenizer(batch["content"], padding=True, truncation=True)
+    return tokenizer(batch["comment"], padding=True, truncation=True)
 
 
 my_dataset_dict_encoded = my_dataset_dict.map(tokenize, batched=True, batch_size=None)
-my_dataset_dict_encoded = my_dataset_dict_encoded.remove_columns('content')
+my_dataset_dict_encoded = my_dataset_dict_encoded.remove_columns('comment')
 my_dataset_dict_encoded = my_dataset_dict_encoded.remove_columns('__index_level_0__')
 
 # setting device and model
@@ -103,7 +103,7 @@ trainer.save_model('robertaModel')
 test = pd.read_csv('test.csv')
 
 classifier = pipeline(task= 'sentiment-analysis', model= "robertaModel")
-test_model_result = classifier(test['content'].to_list())
+test_model_result = classifier(test['comment'].to_list())
 
 for i in range(len(test)):
     test.loc[i, 'prediction'] = int(test_model_result[i]['label'][5])
