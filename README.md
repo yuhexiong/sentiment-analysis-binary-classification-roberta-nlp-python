@@ -1,4 +1,5 @@
-# Permission API
+# Sentiment Analysis
+
 Using the Hugging Face's RoBERTa model for fine-tuning to achieve the desired Chinese sentiment analysis.  
 Preparation involves organizing all crawled data into fields containing id, title (if unavailable, leave blank as it's not the target for this training), comment, and label (expressed as 0 or 1 for negative or positive, respectively). An adequate amount of data is selected to label the sentiment of comment in the label field. The labeled data is then split into training and validation sets according to the desired ratio, while unlabeled data is designated for testing. Consequently, three CSV files are prepared: train.csv, valid.csv, and test.csv, enabling training to commence.  
 I utilize Google's Colab to run my model, allowing for hardware-specific training adjustments. In the code, the model is stored as 'robertaModel'. Once training is completed, the upper portion of the code can be commented out, and the trained model can be used for analyzing different testing datasets iteratively.  
