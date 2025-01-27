@@ -1,16 +1,12 @@
 # Sentiment Analysis Binary Classification
 
-
-**(also provided Traditional Chinese version document [README-CH.md](README-CH.md).)**
-
-
-Using the Hugging Face's RoBERTa model for fine-tuning to achieve the desired Chinese sentiment analysis.  
-I trained model by Google's Colab. In the code, the model is stored as `robertaModel`. Once training is completed, the upper portion of the code can be commented out, and the trained model can be used for analyzing different testing datasets iteratively.  
+使用 Hugging Face 的 RoBERTa 模型進行微調，以實現所需的中文情感分析。  
+我使用 Google Colab 進行模型訓練。在程式碼中，模型儲存為 `robertaModel`。完成訓練後，可以將程式碼的上半部分註解掉，然後使用訓練好的模型來反覆分析不同的測試資料集。  
 
 ## Overview
 
-- Language: Python v3.10.12
-- Model: RoBERTa(Hugging Face)
+- 語言：Python v3.10.12  
+- 模型：RoBERTa（Hugging Face）  
 
 ## Run
 
@@ -18,12 +14,11 @@ I trained model by Google's Colab. In the code, the model is stored as `robertaM
 python sentiment-analysis-roberta-nlp.py
 ```
 
-
 ## Example CSV To Be Prepared
 
-Preparation involves organizing all crawled data into fields containing `id`, `title` (if unavailable, leave blank as it's not the target for this training), `comment`, and `label` (expressed as 0 or 1 for negative or positive, respectively).  
-An adequate amount of data is selected to label the sentiment of `comment` in the label field. The labeled data is then split into training and validation sets according to the desired ratio, while unlabeled data is designated for testing.  
-Consequently, three CSV files are prepared: `train.csv`, `valid.csv`, and `test.csv`, enabling training to commence.  
+準備工作包括將所有爬取的數據整理成包含 `id`、`title`（如果沒有，留空即可，因為這不是本次訓練的目標）、`comment` 和 `label`（分別用 0 和 1 表示負面和正面）的欄位。  
+選擇足夠的數據來對 `comment` 欄位的情感進行標記，並按照所需的比例將標記好的數據分為訓練集和驗證集，未標記的數據則作為測試集。  
+因此，準備了三個 CSV 檔案：`train.csv`、`valid.csv` 和 `test.csv`，以啟動訓練過程。
 
 ### train.csv
 
